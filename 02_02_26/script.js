@@ -119,18 +119,23 @@ const quotes = [
 
   // console.log(result1);
 
+//1
 //   for(let i = 0; i < quotes.length; i++){
+
 //    //console.log(`${i + 1}. "${quotes[i].author} : ${quotes[i].text}"`);
 //     if(quotes.tags === "success")
 //        console.log(`${quotes.tags}`)
 // }
 
+//2
 // quotes.forEach((quote) =>  console.log(`${quote.tags} === success`))
 
+//3
 // const Q = quotes.filter(quote => quote.tags.includes("success"));
 
 // console.log(Q);
 
+//4
 // const Q = quotes.some(quote => quote.tags.includes("success"));
 
 // console.log(Q);
