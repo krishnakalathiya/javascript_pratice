@@ -33,4 +33,4 @@ nextBtn.addEventListener("click", nextSlide);
 prevBtn.addEventListener("click", prevSlide);
 
 // Auto slide
-setInterval(nextSlide, 3000);
+// setInterval(nextSlide, 3000);
