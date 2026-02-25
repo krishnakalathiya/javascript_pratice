@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* START SCREEN */
+.start-screen {
+  height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-screen button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/* QUIZ */
+.quiz-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #9d6ecc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-container {
+  background: white;
+  width: 600px;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.answer-option {
+  background: #f1f5f9;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.answer-option.selected {
+  background: #667eea;
+  color: white;
+}
+
+.answer-option.correct {
+  background: #22c55e;
+  color: white;
+}
+
+.answer-option.incorrect {
+  background: #ef4444;
+  color: white;
+}
+
+.quiz-footer {
+  text-align: right;
+}
+
+/* RESULT */
+.result-screen {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* NEXT BUTTON STYLING */
+.quiz-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+#nextBtn {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* Disabled State */
+#nextBtn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* Enabled Hover */
+#nextBtn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Click Effect */
+#nextBtn:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+/* RESTART BUTTON */
+.btn-restart {
+  padding: 14px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+}
+
+/* Hover */
+.btn-restart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(34, 197, 94, 0.6);
+}
+
+/* Click */
+.btn-restart:active {
+  transform: scale(0.95);
+}
+
+/* Pulse animation */
+@keyframes restartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.btn-restart.animate {
+  animation: restartPulse 0.4s ease;
+}

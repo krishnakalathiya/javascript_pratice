@@ -1,0 +1,14 @@
+.nav-item .nav-link.active{
+  color:white !important;
+}
+
+.hero-section{
+  background: #5955ad;
+background: linear-gradient(180deg, rgba(89, 85, 173, 1) 0%, rgba(9, 9, 121, 1) 0%, rgba(0, 212, 255, 1) 100%);
+}
+
+.navbar{
+  width: 100% !important;
+  background-color: #5955ad;
+  z-index: 100;
+}
