@@ -1,120 +1,146 @@
+/* DOM ELEMENTS */
+const startScreen = document.getElementById("startScreen");
+const startBtn = document.getElementById("startBtn");
+const quizContainer = document.getElementById("quizContainer");
+const quizBody = document.getElementById("quizBody");
+const nextBtn = document.getElementById("nextBtn");
+const questionCounter = document.getElementById("questionCounter");
+const timerEl = document.getElementById("timer");
+const progressBar = document.getElementById("progressBar");
+
+const resultsContainer = document.getElementById("resultsContainer");
+const finalScore = document.getElementById("finalScore");
+const correctCountEl = document.getElementById("correctCount");
+const incorrectCountEl = document.getElementById("incorrectCount");
+const totalQuestionsEl = document.getElementById("totalQuestions");
+const timeTakenEl = document.getElementById("timeTaken");
+const restartBtn = document.getElementById("restartBtn");
+
+/* QUESTIONS  */
 const questions = [
   {
-    question: "Which keyword is used to declare a variable in JavaScript?",
-    options: ["var", "int", "string", "define"],
+    q: "What is JavaScript?",
+    options: ["Programming Language", "Browser", "Database", "Server"],
     answer: 0
   },
   {
-    question: "Which method converts JSON to object?",
-    options: ["JSON.parse()", "JSON.stringify()", "JSON.convert()", "JSON.object()"],
+    q: "Which keyword is used to declare a variable?",
+    options: ["var", "int", "string", "float"],
     answer: 0
   },
   {
-    question: "Which function runs after a delay?",
-    options: ["setInterval()", "setTimeout()", "delay()", "wait()"],
+    q: "Which function runs after a delay?",
+    options: ["setInterval()", "setTimeout()", "wait()", "delay()"],
     answer: 1
+  },
+  {
+    q: "Which array method adds item to the end?",
+    options: ["push()", "pop()", "shift()", "unshift()"],
+    answer: 0
   }
 ];
 
-let currentQuestion = 0;
+/* VARIABLES */
+let currentIndex = 0;
 let score = 0;
-let selectedAnswer = null;
-let timeRemaining = 300;
-let timerInterval;
+let selected = null;
+let timer = 300;
+let interval;
+let startTime;
 
-/* DOM */
-const startScreen = document.getElementById("startScreen");
-const quizWrapper = document.getElementById("quizWrapper");
-const resultScreen = document.getElementById("resultScreen");
-const quizBody = document.getElementById("quizBody");
-const questionCounter = document.getElementById("questionCounter");
-const timer = document.getElementById("timer");
-const nextBtn = document.getElementById("nextBtn");
+/* START QUIZ  */
+startBtn.addEventListener("click", () => {
+  startScreen.classList.add("content-hide");
+  quizContainer.classList.remove("content-hide");
 
-/* START QUIZ */
-document.getElementById("startBtn").addEventListener("click", () => {
-  startScreen.classList.add("hidden");
-  quizWrapper.classList.remove("hidden");
+  startTime = Date.now();
   startTimer();
   loadQuestion();
 });
 
-/* TIMER */
-function startTimer() {
-  timerInterval = setInterval(() => {
-    timeRemaining--;
-    const min = Math.floor(timeRemaining / 60);
-    const sec = timeRemaining % 60;
-    timer.textContent = `${min}:${sec.toString().padStart(2, "0")}`;
-
-    if (timeRemaining <= 0) {
-      clearInterval(timerInterval);
-      showResult();
-    }
-  }, 1000);
-}
-
 /* LOAD QUESTION */
 function loadQuestion() {
-  selectedAnswer = null;
   nextBtn.disabled = true;
+  selected = null;
 
-  const q = questions[currentQuestion];
-  questionCounter.textContent = `Question ${currentQuestion + 1}/${questions.length}`;
+  const q = questions[currentIndex];
+  questionCounter.textContent = `Question ${currentIndex + 1} / ${questions.length}`;
+  progressBar.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
 
-  let html = `<h3>${q.question}</h3>`;
-  q.options.forEach((opt, index) => {
-    html += `
-      <div class="answer-option" data-index="${index}">
-        ${opt}
-      </div>
-    `;
-  });
+  quizBody.innerHTML = `<h3>${q.q}</h3>`;
 
-  quizBody.innerHTML = html;
+  q.options.forEach((opt, i) => {
+    const div = document.createElement("div");
+    div.className = "answer-option";
+    div.textContent = opt;
 
-  document.querySelectorAll(".answer-option").forEach(option => {
-    option.addEventListener("click", selectAnswer);
+    div.addEventListener("click", () => selectAnswer(div, i));
+    quizBody.appendChild(div);
   });
 }
 
 /* SELECT ANSWER */
-function selectAnswer(e) {
-  document.querySelectorAll(".answer-option").forEach(o => o.classList.remove("selected"));
-  e.target.classList.add("selected");
-  selectedAnswer = parseInt(e.target.dataset.index);
+function selectAnswer(el, index) {
+  document.querySelectorAll(".answer-option")
+    .forEach(o => o.classList.remove("selected"));
+
+  el.classList.add("selected");
+  selected = index;
   nextBtn.disabled = false;
 }
 
-/* NEXT */
+/* NEXT BUTTON */
 nextBtn.addEventListener("click", () => {
-  if (selectedAnswer === questions[currentQuestion].answer) {
+  if (selected === questions[currentIndex].answer) {
     score++;
   }
 
-  currentQuestion++;
+  currentIndex++;
 
-  if (currentQuestion < questions.length) {
+  if (currentIndex < questions.length) {
     loadQuestion();
   } else {
     showResult();
   }
 });
 
-/* RESULT */
+/* TIMER */
+function startTimer() {
+  interval = setInterval(() => {
+    timer--;
+
+    const m = Math.floor(timer / 60);
+    const s = timer % 60;
+    timerEl.textContent = `${m}:${s.toString().padStart(2, "0")}`;
+
+    if (timer <= 0) {
+      showResult();
+    }
+  }, 1000);
+}
+
+/* RESULT SCREEN */
 function showResult() {
-  clearInterval(timerInterval);
-  quizWrapper.classList.add("hidden");
-  resultScreen.classList.remove("hidden");
+  clearInterval(interval);
 
-  document.getElementById("finalScore").textContent =
-    `Score: ${score}/${questions.length}`;
+  quizContainer.classList.add("content-hide");
+  resultsContainer.classList.remove("content-hide");
 
-  document.getElementById("resultMessage").textContent =
-    score >= 2 ? "Great Job " : "Keep Practicing ";
+  const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+  const minutes = Math.floor(timeSpent / 60);
+  const seconds = timeSpent % 60;
+
+  const incorrect = questions.length - score;
+  const percentage = Math.round((score / questions.length) * 100);
+
+  finalScore.textContent = `${percentage}%`;
+  correctCountEl.textContent = score;
+  incorrectCountEl.textContent = incorrect;
+  totalQuestionsEl.textContent = questions.length;
+  timeTakenEl.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
 /* RESTART */
-document.getElementById("restartBtn").addEventListener("click", () => {
+restartBtn.addEventListener("click", () => {
   location.reload();
 });

@@ -3,42 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JavaScript Quiz App</title>
-  <link rel="stylesheet" href="assest/css/style.css" />
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="./assest/css/style.css" />
 </head>
+
 <body>
+
+<div class="quiz-wrapper">
 
   <!-- START SCREEN -->
   <div class="start-screen" id="startScreen">
     <h1>JavaScript Quiz</h1>
-    <p>Test your JavaScript knowledge</p>
-    <button id="startBtn">Start Quiz</button>
+    <button id="startBtn" class="btn-start">Start Quiz</button>
   </div>
 
-  <!-- QUIZ SCREEN -->
-  <div class="quiz-wrapper hidden" id="quizWrapper">
-    <div class="quiz-container">
-      <div class="quiz-header">
-        <h2 id="questionCounter"></h2>
-        <div class="timer" id="timer">05:00</div>
-      </div>
+  <!--  QUIZ SCREEN -->
+  <div class="quiz-container content-hide" id="quizContainer">
 
-      <div class="quiz-body" id="quizBody"></div>
-
-      <div class="quiz-footer">
-        <button id="nextBtn" disabled>Next</button>
+    <div class="quiz-header">
+      <div class="quiz-title">Javascript Quiz App</div>
+      <div class="timer" id="timer">05:00</div>
+      <div class="progress-bar-container">
+        <div class="quiz-progress" id="progressBar"></div>
       </div>
+    </div>
+
+    <div class="quiz-body" id="quizBody"></div>
+
+    <div class="quiz-footer">
+      <div id="questionCounter"></div>
+      <button class="btn-next" id="nextBtn" disabled>Next</button>
     </div>
   </div>
 
-  <!-- RESULT SCREEN -->
-  <div class="result-screen hidden" id="resultScreen">
-    <h2>Quiz Completed</h2>
-    <p id="finalScore"></p>
-    <p id="resultMessage"></p>
+  <!-- 🟣 RESULT SCREEN -->
+  <div class="results-container content-hide" id="resultsContainer">
+    <h2>Quiz Complete!</h2>
+
+    <div class="results-score" id="finalScore">0%</div>
+
+    <div class="results-details">
+      <div class="result-row">
+        <span>Correct Answers</span>
+        <span id="correctCount">0</span>
+      </div>
+      <div class="result-row">
+        <span>Incorrect Answers</span>
+        <span id="incorrectCount">0</span>
+      </div>
+      <div class="result-row">
+        <span>Total Questions</span>
+        <span id="totalQuestions">0</span>
+      </div>
+      <div class="result-row">
+        <span>Time Taken</span>
+        <span id="timeTaken">00:00</span>
+      </div>
+    </div>
+
     <button class="btn-restart" id="restartBtn">Restart Quiz</button>
   </div>
-  
-  <script src="./Quiz_app.js"></script>
+
+</div>
+
+<script src="Quiz_app.js"></script>
 </body>
 </html>
