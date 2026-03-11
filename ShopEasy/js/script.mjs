@@ -1,6 +1,73 @@
 import { getProducts } from "./product.mjs";
 import { getProductById } from "./product.mjs";
 
+
+// User Session Check For Authentication
+
+
+const isUserLoggedIn = () => {
+  return sessionStorage.getItem("currentUser") !== null;
+}
+
+// setCurrentUser
+
+const setCurrentUser = () => {
+  console.log("you have sucessfully login.");
+
+  let username = document.getElementById("formGroupExample_Input").value
+  let password = document.getElementById("formGroupExample_Input2").value
+
+  let newUser = {
+    username:username,
+    password:password
+  }
+
+  sessionStorage.setItem("currentUser" , JSON.stringify(newUser))
+}
+
+
+// getCurrentUser
+
+const getCurrentUser = () => {
+  const userData = sessionStorage.getItem("currentUser")
+  return userData ? JSON.parse(userData) : null
+}
+
+// Logout User
+
+const logoutUser = () => {
+  sessionStorage.removeItem("currentUser")
+  sessionStorage.removeItem("cart")
+  window.location.href = 'index.html'
+}
+
+// UI Update based on user login status
+
+const updateUserUI = () => {
+  const user = getCurrentUser()
+
+  const usernameDisplay = document.getElementById("username-display");
+
+  const logoutBtn = document.getElementById("logout-btn")
+
+  if(user){
+    usernameDisplay.textContent = user.username
+    logoutBtn.style.display = 'inline-block'
+  }else{
+    usernameDisplay.textContent = "Guest"
+    logoutBtn.style.display = "none"
+    window.location.href = "index.html"
+  }
+}
+
+// Handle Logout
+
+document.getElementById('logout-btn').addEventListener("click" , () => {
+  if(confirm("Are you sure you want to logout?")){
+    logoutUser()
+  }
+});
+
 const displayProducts = (productToDisplay) => {
 
   const container = document.getElementById("products_container");
@@ -218,6 +285,14 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("sort-filter")
     ?.addEventListener("change", filterProducts);
+
+    document.getElementById("register_btn").addEventListener("click" , () => {
+    setCurrentUser()
+  })
+
+   document.getElementById("logout-btn").addEventListener("click" , () => {
+    logoutUser()
+  })
 
   document.addEventListener("click", function (e) {
     if (e.target.classList.contains("btn-add-to-cart")) {
