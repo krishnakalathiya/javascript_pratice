@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Data Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Multi-API Explorer</h1>
+    
+    <div class="card">
+    <h2>Weather Api</h2>
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+    <div id="result" class="result">
+      <p id="cityName">City: -</p>
+      <p id="temp">Temperature: -</p>
+      <p id="desc">Condition: -</p>
+    </div>
+  </div>
+
+    <div class="card">
+      <h3>Movie Search</h3>
+      <input id="movieInput" type="text" placeholder="Enter movie title">
+      <button onclick="getMovie()" class="secondary">Search Movie</button>
+      <div id="movieResult" class="stats-display">
+        <p>Title: <span id="Title">-</span></p>
+        <p>Year: <span id="Year">-</span></p>
+        <p>rating: <span id="imdbRating">-</span></p>
+        <p>Poster:-<img id="Poster" width="150" /></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Corona Record search</h3>
+      <input id="country" type="text" placeholder="Enter Country Name">
+      <button onclick="getCoronaData()">Get Corona Data</button>
+      <div id="coronaresult" class="stats-display">
+        <p>Cases: <span id="cases">-</span></p>
+        <p>Deaths: <span id="deaths">-</span></p>
+        <p>Recoverd: <span id="recovered">-</span></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Get Dog</h3>
+      <button onclick="getDog()">Get New Dog</button><br>
+    <img id="dogImage" src="" alt="Dog will appear here" width="250">
+    </div>
+    </div>
+    
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
